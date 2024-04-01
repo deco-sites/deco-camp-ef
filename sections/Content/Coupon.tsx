@@ -4,6 +4,7 @@ export interface CouponProps {
 }
 
 const Coupon = ({ text, coupon }: CouponProps) => {
+  
   return (
     <section class="bg-base-100">
       <div class="xl:container xl:mx-auto mx-5 md:mx-10 py-10 md:py-24">
