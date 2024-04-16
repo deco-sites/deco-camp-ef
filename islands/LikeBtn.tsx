@@ -14,6 +14,7 @@ export default function LikeBtn({ productId }: Props) {
     const quantity = useSignal(0);
 
     useEffect(() => {
+      console.log(selected);
         const updateTotals = async () => {
           const totalVotes = await invoke["deco-sites/deco-camp-ef"].loaders
             .totalLikes();
@@ -25,14 +26,14 @@ export default function LikeBtn({ productId }: Props) {
           quantity.value = totalVotesProduct.product;
           console.log(totalVotes.total);
         };
-    
+        
         updateTotals();
-      });
+      },[]);
     
 
     const handleClick = async (e: MouseEvent) => {
         e.preventDefault();
-        selected.value = true;
+        selected.value = !selected.value;
 
         await invoke["deco-sites/deco-camp-ef"].actions.sendLikes({
         productId: productId,
@@ -46,36 +47,25 @@ export default function LikeBtn({ productId }: Props) {
         const totalLikesProduct = await invoke["deco-sites/deco-camp-ef"].loaders
         .totalLikesProduct({ productId });
 
-        quantity.value = totalLikesProduct.product;e.preventDefault();
-        selected.value = true;
+        quantity.value = totalLikesProduct.product;
 
-        await invoke["deco-sites/deco-camp-ef"].actions.sendVotes({
-        productId: productId,
-        });
-
-        const totalVotes = await invoke["deco-sites/deco-camp-ef"].loaders
-        .totalLikes();
-
-        total.value = totalVotes.total;
-
-        const totalVotesProduct = await invoke["deco-sites/deco-camp-ef"].loaders
-        .totalLikesProduct({ productId });
-
-        quantity.value = totalVotesProduct.product;
+        console.log(selected);
     };
 
 
     
     return (
+      <>
         <button
         className="flex items-center gap-2"
         onClick={(e) => handleClick(e)}
         >
-        {!selected.value
+        {selected
           ? <Icon id="MoodSmile" width={24} height={24} />
           : <Icon id="MoodCheck" width={24} height={24} />
         }
-        <span>{quantity}</span>
         </button>
+        <span>{quantity}</span>
+      </>
     );
 }

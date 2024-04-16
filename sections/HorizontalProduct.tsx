@@ -1,4 +1,4 @@
-import type { ImageWidget } from "apps/admin/widgets.ts";
+import { ImageWidget } from "apps/admin/widgets.ts";
 import Image from "apps/website/components/Image.tsx";
 import LikeBtn from "../islands/LikeBtn.tsx";
 
