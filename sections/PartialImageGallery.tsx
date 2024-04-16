@@ -1,17 +1,11 @@
-import { Picture, Source } from "apps/website/components/Picture.tsx";
 import Image from "apps/website/components/Image.tsx";
 import type { ImageWidget } from "apps/admin/widgets.ts";
 import { usePartialSection } from "deco/hooks/usePartialSection.ts";
 
 export interface Props {
     title: string;
-    images: Images[];
+    images: ImageWidget[];
     quantity: number;
-}
-
-export interface Images {
-    src: ImageWidget;
-    alt: string;
 }
 
 export default function PartialImageGallery({
@@ -21,15 +15,23 @@ export default function PartialImageGallery({
 }: Props) {
     return (
         <div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {images?.slice(0, quantity).map((image, index) => {
-                return (
-                    <img src={image.src} alt={image.alt} key={index} />
-                )
-            }
-            )}
-
-        </div>
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
+        {images.slice(0, quantity).map((image, index) => {
+          return (
+            <div className="w-40 md:w-72 flex justify-center items-center overflow-hidden rounded md:rounded-xl duration-300 hover:scale-110">
+              <Image
+                src={image}
+                alt={image}
+                width={304}
+                height={200}
+                preload
+                loading="eager"
+                fetchPriority="high"
+              />
+            </div>
+          );
+        })}
+      </div>
 
         {quantity < images.length && (
             <div className="flex justify-center items-center">

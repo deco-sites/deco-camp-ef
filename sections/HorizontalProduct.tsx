@@ -1,4 +1,6 @@
 import type { ImageWidget } from "apps/admin/widgets.ts";
+import Image from "apps/website/components/Image.tsx";
+import LikeBtn from "../islands/LikeBtn.tsx";
 
 export interface Props {
   name: string;
@@ -21,7 +23,7 @@ export function ErrorFallback(error: Error) {
       <div className="w-full md:w-2/3 flex flex-col md:flex-row">
         <div className="w-full md:w-1/2">
           <h2 className="text-gray-900 font-bold">New Title</h2>
-          <p className="mt-2 text-gray-600 text-sm line-clamp-1 md:line-clamp-3">
+          <p className="mt-2 text-gray-600 text-sm line-clamp-4">
             New description text goes here.
           </p>
         </div>
@@ -31,6 +33,7 @@ export function ErrorFallback(error: Error) {
               Learn more
             </button>
           </a>
+          <LikeBtn productId={1} />
         </div>
       </div>
     </div>
@@ -54,25 +57,35 @@ export default function HorizontalProduct({
   url,
 }: Props) {
   return (
-    <div class="flex container gap-4 flex-row lg:gap-8 p-10 bg-white rounded-md mt-2 mb-2">
-      <div class="flex flex-col flex-shrink-0 lg:w-1/3">
-        <img class="h-48 lg:h-60" src={image} alt={name} />
-      </div>
-      <div class="flex flex-col w-full lg:flex-row lg:w-2/3">
-        <div class="flex flex-col gap-2 w-full lg:w-1/2 content-center">
-          <h1 class="text-lg lg:text-xl font-bold">{name}</h1>
-          <p class="text-base-content">{description}</p>
+    <div className="max-w-screen-xl flex container gap-4 flex-row lg:gap-8 p-10 bg-white rounded-md mt-2 mb-2 items-center">
+      <div className="flex flex-col flex-shrink-0 lg:w-1/3 items-center">
+        <div className="overflow-hidden h-36 sm:h-48">
+        <Image 
+          className={`w-full h-full hover:scale-110 object-cover transition-transform duration-300 ease-in-out`} 
+          src={image} 
+          alt={name}
+          width={100}
+          height={100}
+          />
         </div>
-        <div class="flex flex-col gap-2 w-full lg:w-1/2 content-center">
-          <h2 class="text-lg lg:text-xl font-bold">${price}</h2>
+
+      </div>
+      <div className="flex flex-col w-full lg:flex-row lg:w-2/3 items-center">
+        <div className="flex flex-col gap-2 w-full lg:w-1/2 content-center">
+          <h1 className="text-lg lg:text-xl font-bold">{name}</h1>
+          <p className="text-base-content line-clamp-4">{description}</p>
+        </div>
+        <div className="flex flex-col gap-2 w-full lg:w-1/2 content-center">
+          <h2 className="text-lg lg:text-xl font-bold">${price}</h2>
           <a
             href={url}
-            class="text-primary underline"
+            className="text-primary underline"
             target="_blank"
             rel="noopener noreferrer"
           >
             Buy now
           </a>
+          <LikeBtn productId={1} />
         </div>
       </div>
     </div>
