@@ -1,3 +1,3 @@
 import { signal } from "@preact/signals";
 
-export const totalLikes = signal<number>(0);
+export const total = signal<number>(0);

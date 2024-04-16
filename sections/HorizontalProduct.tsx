@@ -33,7 +33,7 @@ export function ErrorFallback(error: Error) {
               Learn more
             </button>
           </a>
-          <LikeBtn productId={1} />
+          <LikeBtn productId={"1"} />
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@ export default function HorizontalProduct({
           >
             Buy now
           </a>
-          <LikeBtn productId={1} />
+          <LikeBtn productId={"1"} />
         </div>
       </div>
     </div>
