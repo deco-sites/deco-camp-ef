@@ -1,44 +1,34 @@
 import { signal, useSignal } from "@preact/signals";
+import { totalLikes } from "deco-sites/deco-camp-ef/sdk/useTotalLikes.ts";
 import Icon from "deco-sites/deco-camp-ef/components/ui/Icon.tsx";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 export interface Props {
   productId: number;
 }
 
 function LikeBtn({ productId }: Props) {
-    // const [liked, setLiked] = useState(false);
-    // const [likes, setLikes] = useState(0);
-    // const [loading, setLoading] = useState(false);
+    const selected = useSignal(false);
+    const quantity = useSignal(0);
 
-
-    // const handleClick = (e: MouseEvent) => {
-    //     setLikes(likes + 1);
-    // };
+    const handleClick = async (e: MouseEvent) => {
+        e.preventDefault();
+        selected.value = !selected.value;
+        quantity.value = quantity.value + 1;
+        console.log(quantity.value);
+    };
     
-    // return (
-    //     <button
-    //     className="flex items-center gap-2"
-    //     onClick={(e) => handleClick(e)}
-    //     >
-    //         {liked ? (  // If liked is true then render MoodCheck icon  else render MoodSmile icon
-    //             <Icon id="MoodCheck" width={50} height={50} />
-    //         ) : (
-    //             <Icon id="MoodSmile" width={50} height={50} />
-    //         )}
-    //     <span>{likes}</span>
-    //     </button>
-    // );
-
-    const [count, setCount] = useState(0);
-
-    function handleClick() {
-        setCount(count + 1);
-    }
-
+    
     return (
-        <button onClick={handleClick}>
-        You pressed me {count} times
+        <button
+        className="flex items-center gap-2"
+        onClick={(e) => handleClick(e)}
+        >
+            {!selected.value 
+                ? <Icon id="MoodCheck" width={50} height={50} />
+                : <Icon id="MoodSmile" width={50} height={50} />
+            }
+        <span>{quantity.value}</span>
         </button>
     );
 }
