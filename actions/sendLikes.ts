@@ -1,7 +1,7 @@
 import { AppContext } from "deco-sites/deco-camp-ef/apps/site.ts";
 
 export interface sendLikesProps {
-  productID: string;
+  productId: string;
 }
 
 export default async function sendLikes(
@@ -9,7 +9,7 @@ export default async function sendLikes(
   _req: Request,
   _ctx: AppContext,
 ) {
-  const data = { productId: props.productID };
+  const data = { productId: props.productId };
 
   console.log("data", data);
 

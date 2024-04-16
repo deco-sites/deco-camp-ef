@@ -32,10 +32,36 @@ export default function LikeBtn({ productId }: Props) {
 
     const handleClick = async (e: MouseEvent) => {
         e.preventDefault();
-        console.log(selected, quantity.value);
         selected.value = true;
-        quantity.value = quantity.value + 1;
-        console.log(selected, quantity.value);
+
+        await invoke["deco-sites/deco-camp-ef"].actions.sendLikes({
+        productId: productId,
+        });
+
+        const totalLikes = await invoke["deco-sites/deco-camp-ef"].loaders
+        .totalLikes();
+
+        total.value = totalLikes.total;
+
+        const totalLikesProduct = await invoke["deco-sites/deco-camp-ef"].loaders
+        .totalLikesProduct({ productId });
+
+        quantity.value = totalLikesProduct.product;e.preventDefault();
+        selected.value = true;
+
+        await invoke["deco-sites/deco-camp-ef"].actions.sendVotes({
+        productId: productId,
+        });
+
+        const totalVotes = await invoke["deco-sites/deco-camp-ef"].loaders
+        .totalLikes();
+
+        total.value = totalVotes.total;
+
+        const totalVotesProduct = await invoke["deco-sites/deco-camp-ef"].loaders
+        .totalLikesProduct({ productId });
+
+        quantity.value = totalVotesProduct.product;
     };
 
 
